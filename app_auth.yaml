@@ -1,0 +1,56 @@
+# change application ID
+#application: training-conference-app
+application: august-eye-94310
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+#manual_scaling:
+# instances: 2
+
+#basic_scaling:
+#  max_instances: 4
+#  idle_timeout: 10s
+
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 3
+  min_pending_latency: 10ms
+  max_pending_latency: automatic
+  max_concurrent_requests: 8
+
+
+
+handlers:
+- url: /images
+  static_dir: images
+
+- url: /css
+  static_dir: css
+
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico
+
+- url: /userprofile
+  script: main.app
+  login: required
+
+- url: /scheduleconference
+  script: main.app
+  login: required
+
+- url: /developer
+  script: main.app
+  login: admin
+
+- url: /.*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: latest
+
+- name: jinja2
+  version: latest
