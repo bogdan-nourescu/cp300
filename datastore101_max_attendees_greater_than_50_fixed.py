@@ -35,8 +35,8 @@ class Conference(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        query=Conference.query().order(Conference.maxAttendees)
-        filter_query=query.filter(Conference.maxAttendees>=50).fetch(10)
+        query=Conference.query().order(Conference.max_attendees)
+        filter_query=query.filter(Conference.max_attendees>=50).fetch(10)
         conference_values={"conferences":filter_query}
         template = jinja_environment.get_template('index.html')
         self.response.out.write(template.render(conference_values))
